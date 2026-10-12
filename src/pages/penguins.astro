@@ -1,0 +1,23 @@
+---
+import * as Plot from "@observablehq/plot";
+import Layout from "../layouts/Layout.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import penguins from "../data/penguins-light.json";
+---
+
+<Layout title="Penguins">
+  <h1 class="text-2xl">Test Astro et Plot (Observablehq) - Penguins</h1>
+
+  <PlotFigure
+    options={{
+      title: "Penguins",
+      caption: "Figure 1. Culmen length / culmen depth",
+      ariaLabel: "Penguins : culmen length / culmen depth",
+      grid: true,
+      color: { legend: true },
+      marks: [
+        Plot.dot(penguins, { x: "culmen_length_mm", y: "culmen_depth_mm", stroke: "species" }),
+      ],
+    }}
+  />
+</Layout>

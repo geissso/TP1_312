@@ -1,0 +1,48 @@
+---
+import * as Plot from "@observablehq/plot";
+import Layout from "../layouts/Layout.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import aaplRaw from "../data/aapl.json";
+import alphabet from "../data/alphabet.json";
+
+const aapl = aaplRaw.map((d) => ({ ...d, Date: new Date(d.Date) }));
+---
+
+<Layout title="Exemples">
+  <PlotFigure
+    options={{
+      title: "Line chart",
+      caption: "Figure 1. AAPL",
+      ariaLabel: "Line chart AAPL",
+      y: { grid: true },
+      marks: [Plot.ruleY([0]), Plot.lineY(aapl, { x: "Date", y: "Close" })],
+    }}
+  />
+
+  <PlotFigure
+    options={{
+      title: "Bar chart",
+      caption: "Figure 2. Alphabet",
+      ariaLabel: "Bar chart alphabet",
+      y: { grid: true, percent: true },
+      marks: [
+        Plot.barY(alphabet, { x: "letter", y: "frequency", sort: { x: "-y" } }),
+        Plot.ruleY([0]),
+      ],
+    }}
+  />
+
+  <PlotFigure
+    options={{
+      title: "Cleveland dot plot",
+      caption: "Figure 3. Alphabet",
+      ariaLabel: "Cleveland dot plot alphabet",
+      marginLeft: 30,
+      x: { grid: true, percent: true },
+      marks: [
+        Plot.ruleY(alphabet, { y: "letter", x: "frequency", sort: { y: "-x" }, strokeOpacity: 0.3 }),
+        Plot.dot(alphabet, { y: "letter", x: "frequency", fill: "currentColor" }),
+      ],
+    }}
+  />
+</Layout>

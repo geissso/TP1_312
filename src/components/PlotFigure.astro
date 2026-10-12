@@ -1,0 +1,10 @@
+---
+import * as Plot from "@observablehq/plot";
+import { JSDOM } from "jsdom";
+
+const { options } = Astro.props;
+const { document } = new JSDOM().window;
+const html = Plot.plot({ ...options, document }).outerHTML;
+---
+
+<Fragment set:html={html} />
